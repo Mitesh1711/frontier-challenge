@@ -17,7 +17,9 @@ export class AppComponent {
   constructor(private commentsService: CommentService) {
     this.getCommentsFromLocalStorage();
     if (!this.currentUser) this.getAllComments();
-    this.comments.sort((a: Comment, b: Comment) => (a.score < b.score) ? 1 : -1);
+    if (this.comments?.length > 0) {
+      this.comments?.sort((a: Comment, b: Comment) => (a.score < b.score) ? 1 : -1);
+    }
   }
 
   getAllComments = () => {

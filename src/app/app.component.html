@@ -5,7 +5,7 @@
       <app-comment-card [comment]="comment" (commentEdit)="onCommentEdit($event)" [currentUser]="currentUser">
       </app-comment-card>
       <div *ngIf="comment?.replies?.length > 0" fxLayout="column" fxLayoutAlign="start end" fxLayoutGap="12px"
-        class="mt-12">
+        class="mt-12 reply-block">
         <div *ngFor="let reply of comment.replies" class="reply-card">
           <app-comment-card [comment]="reply" (commentEdit)="onCommentEdit($event)" [currentUser]="currentUser">
           </app-comment-card>
