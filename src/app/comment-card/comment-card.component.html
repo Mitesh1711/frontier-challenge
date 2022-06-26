@@ -1,0 +1,81 @@
+<mat-card fxLayout.gt-sm="row" fxLayoutAlign="start stretch" fxLayoutGap.gt-sm="12px" fxLayout="column"
+  fxLayoutGap="0px">
+  <div fxLayout="column" fxLayoutAlign="space-between center" fxHide.lt-md>
+    <button mat-icon-button (click)="upVote(1, comment.id)">
+      <mat-icon>add</mat-icon>
+    </button>
+    <span>{{comment?.score}}</span>
+    <button mat-icon-button (click)="downVote(-1, comment.id)">
+      <mat-icon>remove</mat-icon>
+    </button>
+  </div>
+  <div class="full-width">
+    <div fxLayoutAlign="row" fxLayoutAlign="space-between center">
+      <div fxLayoutAlign="row" fxLayoutAlign="space-between center" fxLayoutGap="12px">
+        <img [src]="comment?.user?.image?.png" [alt]="comment?.user?.username" width="50" height="50">
+        <span>{{comment?.user?.username}}</span>
+        <mat-chip-list *ngIf="currentUser?.username=== comment?.user?.username">
+          <mat-chip color="primary" selected>
+            You
+          </mat-chip>
+        </mat-chip-list>
+        <span>{{calculateCreatedAt(comment.createdAt)}}</span>
+      </div>
+      <div fxHide.lt-md>
+        <button mat-button color="warn" (click)="onDelete(comment)"
+          *ngIf="currentUser?.username=== comment?.user?.username">
+          <mat-icon>delete</mat-icon>
+          Delete
+        </button>
+        <button mat-button color="primary" (click)="onEdit()" *ngIf="currentUser?.username=== comment?.user?.username">
+          <mat-icon>edit</mat-icon>
+          Edit
+        </button>
+        <button mat-button color="primary" (click)="onReply(comment?.user?.username)"
+          *ngIf="currentUser?.username !== comment?.user?.username">
+          <mat-icon>reply</mat-icon>
+          Reply
+        </button>
+      </div>
+    </div>
+    <div class="mt-12">
+      <span *ngIf="!editMode">
+        {{comment.content}}
+      </span>
+      <app-comment-box [buttonText]="editMode ? 'Save' : 'Reply'" *ngIf="editMode" [content]="comment.content"
+        [label]="'Edit Comment'" (commentBoxValue)="onCommentBoxValueChange($event, comment.id, true)">
+      </app-comment-box>
+    </div>
+    <div fxHide.gt-sm fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
+        <button mat-icon-button (click)="upVote(1, comment.id)">
+          <mat-icon>add</mat-icon>
+        </button>
+        <span>{{comment?.score}}</span>
+        <button mat-icon-button (click)="downVote(-1, comment.id)">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </div>
+      <div>
+        <button mat-button color="primary" (click)="onDelete(comment)" style="padding-right: 0"
+          *ngIf="currentUser?.username=== comment?.user?.username">
+          <mat-icon>delete</mat-icon>
+          Delete
+        </button>
+        <button mat-button color="primary" (click)="onEdit()" *ngIf="currentUser?.username=== comment?.user?.username">
+          <mat-icon>edit</mat-icon>
+          Edit
+        </button>
+        <button mat-button color="primary" (click)="onReply(comment?.user?.username)"
+          *ngIf="currentUser?.username !== comment?.user?.username">
+          <mat-icon>reply</mat-icon>
+          Reply
+        </button>
+      </div>
+    </div>
+  </div>
+
+</mat-card>
+<app-comment-box [buttonText]="'Reply'" *ngIf="showCommentBox" [label]="'Reply to Comment'"
+  [replyToUsername]="replyToUsername"
+  (commentBoxValue)="onCommentBoxValueChange($event, comment.id, false, comment?.user?.username)"></app-comment-box>

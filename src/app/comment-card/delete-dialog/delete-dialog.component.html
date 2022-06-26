@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Delete {{type}}</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want to delete this {{type}}? This will remove {{ type === 'Comment' ? 'the comments and its
+    replies' : 'the reply' }} and can`t be undone.
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()" cdkFocusInitial>NO, CANCEL</button>
+  <button mat-button [mat-dialog-close]="true" color="warn" mat-raised-button>YES, DELETE</button>
+</div>
