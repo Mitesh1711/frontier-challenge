@@ -13,7 +13,6 @@ export class DeleteDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<DeleteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.type = data?.type;
-    console.log('🚀 ~ file: delete-dialog.component.ts ~ line 16 ~ this.type', this.type)
   }
 
   ngOnInit() {
